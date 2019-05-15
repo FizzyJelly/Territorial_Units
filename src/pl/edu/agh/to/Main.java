@@ -8,24 +8,27 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        Ministry ministry = new Ministry("Ministry of Something");
-        ministry.registerUnit(new ZUS("ZUS in Cracow"));
-        ministry.registerUnit(new ZUS("ZUS in Warsaw"));
-        ministry.registerUnit(new MOPS("MOPS in Wieliczka"));
-        ministry.registerUnit(new MOPS("MOPS in Cedynia"));
-        ministry.registerUnit(new MOPS("MOPS in Katowice"));
-        ministry.registerUnit(new PUP("PUP in Cracow"));
+        Database database = new Database();
 
-        ministry.sendMessage("Hello there ZUS!!", new SendToTypes(ZUS.class));
-        ministry.sendMessage("Welcome, all the MOPS units!!", new SendToTypes(MOPS.class));
+        Ministry ministry = new Ministry("Ministry of Something", database);
+        ministry.registerUnit(new ZUSUnit("ZUSUnit in Cracow"));
+        ministry.registerUnit(new ZUSUnit("ZUSUnit in Warsaw"));
+        ministry.registerUnit(new MOPSUnit("MOPSUnit in Wieliczka"));
+        ministry.registerUnit(new MOPSUnit("MOPSUnit in Cedynia"));
+        ministry.registerUnit(new MOPSUnit("MOPSUnit in Katowice"));
+        ministry.registerUnit(new PUPUnit("PUPUnit in Cracow"));
+        ministry.registerUnit(new MonsterUnit());
+        //System.out.println(ZUS.class.toString());
+        ministry.sendMessage("Hello there ZUSUnit!!", ZUS.class);
+        ministry.sendMessage("Welcome, all the MOPSUnit units!!", MOPS.class);
 
         List<Class> zusAndMops = new ArrayList<>();
         zusAndMops.add(ZUS.class);
         zusAndMops.add(MOPS.class);
 
-        ministry.sendMessage("Hello ZUS and MOPS!", new SendToTypes(zusAndMops));c
+        ministry.sendMessage("Hello ZUSUnit and MOPSUnit!", zusAndMops);
 
-        ministry.sendMessage("Goodbye to all of you!!", new SendToAll());
+        ministry.sendMessageToAll("Goodbye to all of you!!");
 
         System.exit(0);
 

@@ -1,31 +1,46 @@
 package pl.edu.agh.to.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SendToTypes implements ISendStrategy {
+public class ToTypes implements IFilterStrategy {
 
     private List<Class> recipientTypes;
 
     @Override
     public List<TerritorialUnit> filterRecipients(List<TerritorialUnit> units) {
-        List<TerritorialUnit> recipients = units.stream().filter(unit -> recipientTypes.contains(unit.getClass())).collect(Collectors.toList());
+        //System.out.println(units);
+        List<TerritorialUnit> recipients = new ArrayList<>();
+
+        for (TerritorialUnit unit : units) {
+
+            for (Class type : unit.getClass().getInterfaces()) {
+                if (recipientTypes.contains(type)) {
+                    recipients.add(unit);
+                    break;
+                }
+            }
+        }
+
+        //System.out.println(recipients.toString());
         return recipients;
     }
 
-    public SendToTypes() {
+    public ToTypes() {
         recipientTypes = new ArrayList<>();
     }
 
-    public SendToTypes(Class targetType) {
+    public ToTypes(Class targetType) {
         this();
+        //System.out.println(targetType.toString());
         if (TerritorialUnit.class.isAssignableFrom(targetType)) {
             recipientTypes.add(targetType);
         }
     }
 
-    public SendToTypes(List<Class> targetTypes) {
+    public ToTypes(List<Class> targetTypes) {
         this();
         for (Class type : targetTypes) {
             if (TerritorialUnit.class.isAssignableFrom(type)) { // does it implement Territorial unit?

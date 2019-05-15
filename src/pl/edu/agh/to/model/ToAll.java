@@ -3,7 +3,7 @@ package pl.edu.agh.to.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SendToAll implements ISendStrategy {
+public class ToAll implements IFilterStrategy {
 
     @Override
     public List<TerritorialUnit> filterRecipients(List<TerritorialUnit> units) {
