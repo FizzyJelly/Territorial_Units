@@ -1,4 +1,4 @@
-package pl.edu.agh.to.model;
+package pl.edu.agh.to;
 
 public class PUPUnit implements PUP {
     private String name;

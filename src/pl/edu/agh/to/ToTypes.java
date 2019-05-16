@@ -1,7 +1,8 @@
-package pl.edu.agh.to.model;
+package pl.edu.agh.to;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,22 +11,8 @@ public class ToTypes implements IFilterStrategy {
     private List<Class> recipientTypes;
 
     @Override
-    public List<TerritorialUnit> filterRecipients(List<TerritorialUnit> units) {
-        //System.out.println(units);
-        List<TerritorialUnit> recipients = new ArrayList<>();
-
-        for (TerritorialUnit unit : units) {
-
-            for (Class type : unit.getClass().getInterfaces()) {
-                if (recipientTypes.contains(type)) {
-                    recipients.add(unit);
-                    break;
-                }
-            }
-        }
-
-        //System.out.println(recipients.toString());
-        return recipients;
+    public List<TerritorialUnit> filterRecipients(Collection<TerritorialUnit> units) {
+        return units.stream().filter(unit -> Arrays.stream(unit.getClass().getInterfaces()).anyMatch(type -> recipientTypes.contains(type))).collect(Collectors.toList());
     }
 
     public ToTypes() {
@@ -34,7 +21,6 @@ public class ToTypes implements IFilterStrategy {
 
     public ToTypes(Class targetType) {
         this();
-        //System.out.println(targetType.toString());
         if (TerritorialUnit.class.isAssignableFrom(targetType)) {
             recipientTypes.add(targetType);
         }

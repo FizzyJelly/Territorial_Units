@@ -1,6 +1,5 @@
-package pl.edu.agh.to.model;
+package pl.edu.agh.to;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Ministry {
@@ -31,8 +30,6 @@ public class Ministry {
     }
 
     private void sendMessage(String message, IFilterStrategy filter) {
-        //System.out.println("Tutaj");
-        //System.out.println(filter.getClass().toString());
         List<TerritorialUnit> recipients = database.getUnits(filter);
 
         for (TerritorialUnit unit : recipients) {

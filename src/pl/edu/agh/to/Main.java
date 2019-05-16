@@ -1,7 +1,5 @@
 package pl.edu.agh.to;
 
-import pl.edu.agh.to.model.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +16,6 @@ public class Main {
         ministry.registerUnit(new MOPSUnit("MOPSUnit in Katowice"));
         ministry.registerUnit(new PUPUnit("PUPUnit in Cracow"));
         ministry.registerUnit(new MonsterUnit());
-        //System.out.println(ZUS.class.toString());
         ministry.sendMessage("Hello there ZUSUnit!!", ZUS.class);
         ministry.sendMessage("Welcome, all the MOPSUnit units!!", MOPS.class);
 
